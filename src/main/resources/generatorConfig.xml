@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.43\mysql-connector-java-5.1.43.jar"/>
+  <context id="context1">
+    <jdbcConnection connectionURL="jdbc:mysql://47.106.118.9:3306/dwz" driverClass="com.mysql.jdbc.Driver" password="root" userId="root" />
+    <javaModelGenerator targetPackage="com.bx.admin.dao.model" targetProject="common-admin" />
+    <sqlMapGenerator targetPackage="com.bx.admin.dao.mapper.xml" targetProject="common-admin" />
+    <javaClientGenerator targetPackage="com.bx.admin.dao.mapper" targetProject="common-admin" type="XMLMAPPER" />
+    
+    <!-- <table  tableName="tb_user" domainObjectName="User" /> -->
+    <table  tableName="resources" domainObjectName="Resources" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"/>
+  <!-- 	<table  tableName="roles" domainObjectName="Roles" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"/>
+    <table  tableName="roles_permissions" domainObjectName="RolesPermissions" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"/>
+    <table  tableName="user_roles" domainObjectName="UserRoles" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"/>
+    <table  tableName="users" domainObjectName="Users" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"/>
+ -->
+  </context>
+  
+</generatorConfiguration>

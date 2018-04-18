@@ -1,0 +1,97 @@
+<form id="pagerForm" method="post" th:action="@{${pageAction}}">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="numPerPage" th:value="${pageInfo.pageSize}" />
+	<input type="hidden" name="orderField" th:value="${param.orderField}" />
+	<input type="hidden" name="orderDirection" th:value="${param.orderDirection}" />
+</form>
+<div class="pageHeader">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" th:action="@{${pageAction}}" method="post">
+	<div class="searchBar">
+		<ul class="searchContent">
+			<li>
+				<label>我的客户：</label>
+				<input type="text" name="keywords"/>
+			</li>
+			<li>
+			<select class="combox" name="province">
+				<option value="">所有省市</option>
+				<option value="北京">北京</option>
+				<option value="上海">上海</option>
+				<option value="天津">天津</option>
+				<option value="重庆">重庆</option>
+				<option value="广东">广东</option>
+			</select>
+			</li>
+		</ul>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+				<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+
+<div class="pageContent">
+
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" th:href="@{/admin/menu/editor}" target="navTab"><span>添加</span></a></li>
+			<li><a class="delete" href="demo/common/ajaxDone.html?id={id}" target="ajaxTodo" title="确定要删除吗？" warn="请选择一条数据"><span>删除</span></a></li>
+			<li><a class="edit" th:href="@{/admin/menu/editor(id='{id}')}" target="navTab" warn="请选择一条"><span>修改</span></a></li>
+			<li class="line">line</li>
+			<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+			<li><a class="icon" href="javascript:$.printBox('w_list_print')"><span>打印</span></a></li>
+		</ul>
+	</div>
+
+	<div id="w_list_print">
+	<table class="list" width="98%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
+		<thead>
+			<!-- <tr>
+				<th colspan="2">客户信息</th>
+				<th colspan="2">基本信息</th>
+				<th colspan="3">资料信息</th>
+			</tr> -->
+			<tr>
+				<th width="80"  orderField="id" th:class="${#strings.equals(param.orderField,'id')}?${param.orderDirection}:asc">序号</th>
+				<th width="100" >标识</th>
+				<th width="100">说明</th>
+				<th>内容</th>
+				<th width="200">url路径</th>
+				<th width="100">状态</th>
+				<th width="200" orderField="insert_date" th:class="${#strings.equals(param.orderField,'insert_date')}?${param.orderDirection}:desc">创建时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr target="id" th:each="menu,menuStat :${pageInfo.list}" th:rel="${menu.id}">
+				<td th:text="${menuStat.count}"></td>
+				<td th:text="${menu.sn}"></td>
+				<td th:text="${menu.title}"></td>
+				<td th:text="${menu.content}"></td>
+				<td th:text="${menu.url}"></td>
+				<td th:text="${menu.status == 1}?'生效':'无效'"></td>
+				<td th:text="${#dates.format(menu.insertDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	
+	<div class="panelBar" >
+		<div class="pages">
+			<span>显示</span>
+			<select name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+				<option value="1" th:selected="${pageInfo.pageSize == 1}">1</option>
+				<option value="5"  th:selected="${pageInfo.pageSize == 5}">5</option>
+				<option value="20"  th:selected="${pageInfo.pageSize == 20}">20</option>
+				<option value="50"  th:selected="${pageInfo.pageSize == 50}">50</option>
+				<option value="100"  th:selected="${pageInfo.pageSize == 100}">100</option>
+				<option value="200"  th:selected="${pageInfo.pageSize == 200}">200</option>
+			</select>
+			<span th:text="'条，共'+${pageInfo.total}+'条'"></span>
+		</div>
+		<div class="pagination" targetType="navTab" th:totalCount="${pageInfo.total}" th:numPerPage="${pageInfo.pageSize}" th:pageNumShown="${pageInfo.pages}" th:currentPage="${pageInfo.pageNum}"></div>
+	</div>
+	
+</div>
